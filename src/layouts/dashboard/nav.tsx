@@ -1,7 +1,7 @@
 import type { Theme, SxProps, Breakpoint } from '@mui/material/styles';
 
+import { useState, useEffect } from 'react';
 import { varAlpha } from 'minimal-shared/utils';
-import { useRef, useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
@@ -130,7 +130,21 @@ export function NavMobile({
 
 export function NavContent({ data, slots, sx }: NavContentProps) {
   const pathname = usePathname();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [menuItem, setMenuItem] = useState<any>(null);
+  const open = Boolean(anchorEl);
 
+  const handleOpen = (item: any) => (event: React.MouseEvent<HTMLElement>) => {
+    if (item.children) {
+      setAnchorEl(event.currentTarget);
+      setMenuItem(item);
+    }
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+    setMenuItem(null);
+  };
   return (
     <>
       <Box
@@ -144,11 +158,11 @@ export function NavContent({ data, slots, sx }: NavContentProps) {
           justifyContent: 'center',
           gap: 1,
           flexWrap: 'nowrap', // header thường không wrap
-          overflowX: 'auto', // nếu nhiều item thì kéo ngang
+          // overflowX: 'auto', // nếu nhiều item thì kéo ngang
           whiteSpace: 'nowrap',
         }}
       >
-        {data.map((item) => {
+        {/* {data.map((item) => {
           const isActived = item.path === pathname;
 
           return (
@@ -182,9 +196,88 @@ export function NavContent({ data, slots, sx }: NavContentProps) {
               </ListItemButton>
             </ListItem>
           );
-        })}
+        })} */}
+        {data.map((item) => (
+          <ListItem key={item.title} disableGutters disablePadding sx={{ width: 'auto' }}>
+            <ListItemButton
+              disableGutters
+              component={item.children ? 'div' : RouterLink}
+              {...(!item.children && { href: item.path })}
+              onMouseEnter={handleOpen(item)}
+              sx={(theme) => ({
+                px: 1.2,
+                py: 0.4,
+                gap: 1,
+                borderRadius: 999,
+                minHeight: 28,
+                color: theme.vars.palette.common.white,
+                '&:hover': {
+                  bgcolor: varAlpha(theme.vars.palette.common.whiteChannel, 0.15),
+                },
+              })}
+            >
+              <Box sx={{ width: 20, height: 20 }}>{item.icon}</Box>
+              <Box>{item.title}</Box>
+            </ListItemButton>
+          </ListItem>
+        ))}
       </Box>
+      {/* 🔥 DROPDOWN MENU */}
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          onMouseLeave: handleClose,
+        }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+        PaperProps={{
+          sx: {
+            mt: 1,
+            borderRadius: 2,
+            minWidth: 180,
+            boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+            p: 0.5,
+          },
+        }}
+      >
+        {menuItem?.children?.map((child: any) => {
+          const activeChild = pathname === child.path;
 
+          return (
+            <MenuItem
+              key={child.title}
+              component={RouterLink}
+              href={child.path}
+              onClick={handleClose}
+              sx={{
+                borderRadius: 1.5,
+                px: 1.5,
+                py: 1,
+                fontSize: 13,
+                gap: 1.2,
+                fontWeight: 500,
+                minHeight: 32,
+                ...(activeChild && {
+                  bgcolor: 'primary.main',
+                  color: '#fff',
+                  '&:hover': { bgcolor: 'primary.main' },
+                }),
+              }}
+            >
+              {/* icon child */}
+              {child.icon && (
+                <Box sx={{ width: 18, height: 18 }}>
+                  <img src={`/assets/icons/navbar/${child.icon}.svg`} width={18} />
+                </Box>
+              )}
+
+              {child.title}
+            </MenuItem>
+          );
+        })}
+      </Menu>
       {/* Code sidebar nằm dọc  */}
       {/* <Scrollbar fillContent>
         <Box
@@ -255,8 +348,6 @@ export function NavContent({ data, slots, sx }: NavContentProps) {
       </Scrollbar> */}
 
       {slots?.bottomArea}
-
     </>
   );
- 
 }

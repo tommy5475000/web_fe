@@ -1,7 +1,6 @@
 import type { SubmitHandler } from 'react-hook-form';
 
-import { useState } from 'react';
-import { ref, object, string, boolean } from 'yup';
+import { object, string, boolean } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -12,18 +11,15 @@ import {
   Button,
   TextField,
   InputLabel,
-  IconButton,
   RadioGroup,
   DialogTitle,
   DialogContent,
   DialogActions,
-  InputAdornment,
   FormControlLabel,
 } from '@mui/material';
 
 import { editUser } from 'src/apis/user';
 
-import { Iconify } from 'src/components/iconify';
 import { showAlert, capitalizeFirstLetter } from 'src/components/alert';
 
 import { widthImport } from 'src/sections/invoice-it/utils';

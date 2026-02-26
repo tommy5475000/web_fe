@@ -1,73 +1,35 @@
 import { useState } from 'react';
-
-import { Button } from '@mui/material';
-import Grid from '@mui/material/GridLegacy';
+import { useQuery } from '@tanstack/react-query';
 
 import { DashboardContent } from 'src/layouts/dashboard';
+import { getAllDashboardAdmin } from 'src/apis/dashboardAdmin';
 
 // ----------------------------------------------------------------------
 
 export function OverviewAnalyticsView() {
-  // const [src, setSrc] = useState(
-  //   'https://app.powerbi.com/view?r=eyJrIjoiNGJlMDJmY2EtZWUwMy00MGM0LWIwZmYtODkzODIwMjRmNzAzIiwidCI6ImQzYmM5MmZmLWRkNjYtNDBkZC05MzFmLTdlZjk4ZWQ2YmVkZiIsImMiOjEwfQ%3D%3D'
-  // );
+  const { data = [] } = useQuery({
+    queryKey: ['dashboardAdmin'],
+    queryFn: getAllDashboardAdmin,
+  });
+
+  const [current, setCurrent] = useState(0);
+
   return (
     <DashboardContent
       maxWidth="xl"
       sx={{ height: 'calc(102vh)', width: '100%', overflow: 'hidden' }}
     >
-      {/* <Grid container spacing={1} alignItems="center" justifyContent="flex-start" columns={{ xs: 4, sm: 8, md: 12 }}>
-        <Grid item xs={.9} >
-          <Button
-            onClick={() =>
-              setSrc(
-                'https://app.powerbi.com/view?r=eyJrIjoiNGJlMDJmY2EtZWUwMy00MGM0LWIwZmYtODkzODIwMjRmNzAzIiwidCI6ImQzYmM5MmZmLWRkNjYtNDBkZC05MzFmLTdlZjk4ZWQ2YmVkZiIsImMiOjEwfQ%3D%3D'
-              )
-            }
-          >
-            Báo cáo 1
-          </Button>
-        </Grid>
-        <Grid item xs={.9}>
-          <Button
-            onClick={() =>
-              setSrc(
-                'https://app.powerbi.com/view?r=eyJrIjoiYWY0ODA4NjEtNWEwMS00OGRiLWFjNWYtYzg4NjRkYzcxZmExIiwidCI6ImQzYmM5MmZmLWRkNjYtNDBkZC05MzFmLTdlZjk4ZWQ2YmVkZiIsImMiOjEwfQ%3D%3D'
-              )
-            }
-          >
-            Báo cáo 2
-          </Button>
-        </Grid>
-        <Grid item xs={.9}>
-          <Button
-            onClick={() =>
-              setSrc(
-                'https://app.powerbi.com/view?r=eyJrIjoiNGJlMDJmY2EtZWUwMy00MGM0LWIwZmYtODkzODIwMjRmNzAzIiwidCI6ImQzYmM5MmZmLWRkNjYtNDBkZC05MzFmLTdlZjk4ZWQ2YmVkZiIsImMiOjEwfQ%3D%3D'
-              )
-            }
-          >
-            Báo cáo 3
-          </Button>
-        </Grid>
-        <Grid item xs={.9}>
-          <Button
-            onClick={() =>
-              setSrc(
-                'https://app.powerbi.com/view?r=eyJrIjoiYjNmYTcxY2QtY2RiOS00M2IyLTkxMmYtY2U2NzcxZjhkOTA2IiwidCI6ImQzYmM5MmZmLWRkNjYtNDBkZC05MzFmLTdlZjk4ZWQ2YmVkZiIsImMiOjEwfQ%3D%3D'
-              )
-            }
-          >
-            Báo cáo 4
-          </Button>
-        </Grid>
-      </Grid> */}
+      {/* <Tabs value={current} onChange={(e, v) => setCurrent(v)}>
+        {data.map((d) => (
+          <Tab key={d.id} label={d.name} />
+        ))}
+      </Tabs> */}
 
       <iframe
-        title="BÁO CÁO POWER BI"
+        title="data[current]?.title"
         height="100%"
         width="100%"
-        src="https://app.powerbi.com/view?r=eyJrIjoiYjNiODQyOTgtMGI2Yy00Yjc3LTgwNDQtZDc0MTczY2ZmYWYwIiwidCI6ImQzYmM5MmZmLWRkNjYtNDBkZC05MzFmLTdlZjk4ZWQ2YmVkZiIsImMiOjEwfQ%3D%3D"
+        src={data[current]?.link}
         frameBorder={0}
         style={{ border: 0, display: 'block' }}
         allowFullScreen

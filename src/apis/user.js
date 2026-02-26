@@ -26,7 +26,7 @@ export const createUser = async (payload) => {
 export const editUser = async (payload) => {
   try {
     const response = await fetcher.post('/user/editUser', payload);
-    return response;
+    return response.data.content;
   } catch (error) {
     throw error.response.data?.message;
   }

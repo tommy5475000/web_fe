@@ -14,8 +14,9 @@ import { DashboardLayout } from 'src/layouts/dashboard';
 
 export const DashboardPage = lazy(() => import('src/pages/dashboard'));
 export const InvoiceItPage = lazy(() => import('src/pages/invoice-it'));
-export const BlogPage = lazy(() => import('src/pages/blog'));
 export const UserPage = lazy(() => import('src/pages/user'));
+export const DashboardAdmin = lazy(() => import('src/pages/dashboard-admin'));
+export const BlogPage = lazy(() => import('src/pages/blog'));
 export const SignInPage = lazy(() => import('src/pages/sign-in'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
@@ -54,6 +55,7 @@ export const routesSection: RouteObject[] = [
       { index: true, element: <DashboardPage /> },
       { path: 'invoice-it', element: <InvoiceItPage /> },
       { path: 'user', element: <UserPage /> },
+      { path: 'dashboard-admin', element: <DashboardAdmin /> },
       { path: 'products', element: <ProductsPage /> },
       { path: 'blog', element: <BlogPage /> },
     ],

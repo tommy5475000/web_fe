@@ -13,6 +13,11 @@ export type NavItem = {
   path: string;
   icon: React.ReactNode;
   info?: React.ReactNode;
+  children?:{
+    title:string;
+    path:string;
+    icon?:string;
+  }[]
 };
 
 export const navData = [
@@ -20,7 +25,7 @@ export const navData = [
     title: 'Dashboard',
     path: '/',
     icon: icon('ic-analytics'),
-    children: [{ title: 'Báo cáo quản trị', path: '/baocaoquantri' }],
+    // children: [{ title: 'Báo cáo quản trị', path: '/user' }],
   },
   // {
   //   title: 'Invoice IT',
@@ -28,9 +33,13 @@ export const navData = [
   //   icon: icon('ic-invoice'),
   // },
   {
-    title: 'User',
-    path: '/user',
-    icon: icon('ic-user'),
+    title: 'Admin',
+    path: '#',
+    icon: icon('ic-admin'),
+    children: [
+      { title: 'User', path: '/user', icon: 'ic-user' },
+      { title: 'Dashboard Admin', path: '/dashboard-admin', icon: 'ic-admin' },
+    ],
   },
   // {
   //   title: 'Product',

@@ -8,8 +8,6 @@ import { styled, useTheme } from '@mui/material/styles';
 
 import { RouterLink } from 'src/routes/components';
 
-import logo from 'src/components/logo/Logo Cong Ty Ngang.jpg';
-
 import { logoClasses } from './classes';
 
 // ----------------------------------------------------------------------
@@ -36,6 +34,7 @@ export function Logo({
   const PRIMARY_MAIN = theme.vars.palette.primary.main;
   const PRIMARY_DARKER = theme.vars.palette.primary.dark;
 
+  const logo = 'https://benthanhtsc.com/wp-content/uploads/2019/11/logo01.svg'
   const singleLogo = (
     <svg
       width="100%"

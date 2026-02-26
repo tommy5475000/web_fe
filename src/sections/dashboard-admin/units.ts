@@ -1,4 +1,4 @@
-import type { InvoiceProps } from "./invoice-table-row";
+import type { DashboardProps } from "./dashboard-table-row";
 
 export const widthImport = {
   width: '300px'
@@ -54,13 +54,13 @@ export function getComparator<Key extends keyof any>(
 
 // ----------------------------------------------------------------------
 
-type ApplyFilterIvnProps = {
-  inputData: InvoiceProps[];
+type ApplyFilterDashboardProps = {
+  inputData: DashboardProps[];
   filterName: string;
   comparator: (a: any, b: any) => number;
 };
 
-export function applyFilterIvn({ inputData, comparator, filterName }: ApplyFilterIvnProps) {
+export function applyFilterDashboardAmin({ inputData, comparator, filterName }: ApplyFilterDashboardProps) {
   const stabilizedThis = inputData.map((el, index) => [el, index] as const);
 
   stabilizedThis.sort((a, b) => {
@@ -73,7 +73,7 @@ export function applyFilterIvn({ inputData, comparator, filterName }: ApplyFilte
 
   if (filterName) {
     inputData = inputData.filter(
-      (inv) => inv.loaiHinh.toLowerCase().includes(filterName.toLowerCase())
+      (link) => link.title.toLowerCase().includes(filterName.toLowerCase())
 
     );
   }

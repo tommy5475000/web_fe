@@ -64,3 +64,10 @@ export const headLabelUser=[
   {id:'status',label:'Trạng thái',},
   {id:'',label:''},
 ]
+
+export const headLabelDashboadAdmin=[
+  {id:'title',label:'Tên báo cáo'},
+  {id:'link',label:'Đường dẫn'},
+  {id:'status',label:'Trạng thái'},
+  {id:'',label:''}
+]
