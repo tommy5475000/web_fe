@@ -1,10 +1,9 @@
-version: "3.9"
+version: '3.9'
 
 services:
-
-frontend:
+  frontend:
     build: .
     container_name: react_app
     restart: always
     ports:
-      - "3039:80"
+      - '3039:80'
