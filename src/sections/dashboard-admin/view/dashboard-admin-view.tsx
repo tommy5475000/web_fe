@@ -20,6 +20,7 @@ import { ButtonGroup } from 'src/components/button';
 import { Scrollbar } from 'src/components/scrollbar';
 import { headLabelDashboadAdmin } from 'src/components/Item/item';
 
+import { EditLink } from '../editLink';
 import { CreateLink } from '../createLink';
 import { TableNoData } from '../table-no-data';
 import { TableEmptyRows } from '../table-empty-rows';
@@ -81,7 +82,7 @@ export function AdminView() {
 
   const handleRemove = () => {
     Swal.fire({
-      title: 'Bạn có chắc sẽ xoá User này',
+      title: 'Bạn có chắc sẽ xoá Link này',
       showCancelButton: true,
       cancelButtonText: 'Huỷ',
       confirmButtonText: 'Xác nhận',
@@ -98,7 +99,7 @@ export function AdminView() {
   const { mutate: handleDelete } = useMutation<void, Error, string>({
     mutationFn: (linkId) => removeDashboardLink(linkId),
     onError: () => {
-      showAlert({ type: 'error', message: 'User này không tồn tại hoặc đã được xoá' });
+      showAlert({ type: 'error', message: 'Link này không tồn tại hoặc đã được xoá' });
     },
     onSuccess: () => {
       showAlert({ type: 'success', message: 'Xoá thành công' });
@@ -197,7 +198,7 @@ export function AdminView() {
       </ModalManager>
 
       <ModalManager open={openEditUser} handleClose={handleCloseEditUser}>
-        {/* {rowSelect && <EditUser handleClose={handleCloseEditUser} rowSelect={rowSelect} />} */}
+        {rowSelect && <EditLink handleClose={handleCloseEditUser} rowSelect={rowSelect} />}
       </ModalManager>
     </DashboardContent>
   );

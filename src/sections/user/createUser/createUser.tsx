@@ -147,7 +147,6 @@ export function CreateUser({ handleClose }: createUserPros) {
               helperText={errors.pass?.message}
               type={showPassword ? 'text' : 'password'}
               slotProps={{
-                inputLabel: { shrink: true },
                 input: {
                   endAdornment: (
                     <InputAdornment position="end">
@@ -175,7 +174,6 @@ export function CreateUser({ handleClose }: createUserPros) {
               helperText={errors.confirmPass?.message}
               type={showConfirmPassword ? 'text' : 'password'}
               slotProps={{
-                inputLabel: { shrink: true },
                 input: {
                   endAdornment: (
                     <InputAdornment position="end">

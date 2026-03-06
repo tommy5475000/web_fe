@@ -70,11 +70,13 @@ export function EditUser({ handleClose, rowSelect }: EditUserProps) {
     resolver: yupResolver(editSchema),
     mode: 'onTouched',
   });
+console.log(rowSelect);
 
   const { mutate } = useMutation({
     mutationFn: (values: EditUserPayload) => {
       const forrmatValues = {
         ...values,
+        userId:rowSelect?.userId,
         fullName: capitalizeFirstLetter(values.fullName),
         address: capitalizeFirstLetter(values.address ?? ''),
         status: values.status ? 1 : 0,

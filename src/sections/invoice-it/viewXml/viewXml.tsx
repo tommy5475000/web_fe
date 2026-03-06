@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2';
+import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Button, DialogTitle, DialogActions, DialogContent } from '@mui/material';
@@ -50,11 +51,13 @@ export function ViewXml({ handleClose, rowSelect }: ViewXmlProps) {
       }).then((result) => {
         if (result.isConfirmed) {
           mutate({ id, file });
+          handleClose()
         }
       });
     } else {
       // Chưa có file -> upload luôn
       mutate({ id, file });
+      handleClose()
     }
   };
 
@@ -66,23 +69,13 @@ export function ViewXml({ handleClose, rowSelect }: ViewXmlProps) {
 
       <DialogContent>
         {rowSelect?.file ? (
-          <>
-            {/* <a
-              href={`${import.meta.env.VITE_BE_URL}/uploads/invoice-scan/${rowSelect.file}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Xem file scan
-            </a> */}
+          
             <iframe
-              src={`${import.meta.env.VITE_BE_URL}/uploads/invoice-scan/${encodeURIComponent(
-                fileName
-              )}`}
+              src={`${import.meta.env.VITE_BE_URL}/files/invoice-scan/${fileName}`}
               width="100%"
               height="600px"
               style={{ border: 'none' }}
             />
-          </>
         ) : (
           <div>
             <h4>Chưa có upload file scan</h4>

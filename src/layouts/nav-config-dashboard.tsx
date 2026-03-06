@@ -1,5 +1,4 @@
 import path from 'path';
-import { title } from 'process';
 
 import { Label } from 'src/components/label';
 import { SvgColor } from 'src/components/svg-color';
@@ -13,25 +12,28 @@ export type NavItem = {
   path: string;
   icon: React.ReactNode;
   info?: React.ReactNode;
-  children?:{
-    title:string;
-    path:string;
-    icon?:string;
-  }[]
+  children?: {
+    title: string;
+    path: string;
+    icon?: string;
+  }[];
 };
 
 export const navData = [
   {
-    title: 'Dashboard',
+    title: 'Home',
     path: '/',
-    icon: icon('ic-analytics'),
-    // children: [{ title: 'Báo cáo quản trị', path: '/user' }],
+    icon: icon('ic-benthanh'),
   },
-  // {
-  //   title: 'Invoice IT',
-  //   path: '/invoice-it',
-  //   icon: icon('ic-invoice'),
-  // },
+  {
+    title: 'Báo cáo',
+    path: '#',
+    icon: icon('ic-baocao'),
+    children: [
+       {title: 'Tổng quan', path: '/tong-quan', icon: 'ic-report' },
+      //  {title: 'Doanh thu', path: '/doanhthu', icon: 'ic-bctq' }
+      ],
+  },
   {
     title: 'Admin',
     path: '#',
@@ -41,6 +43,11 @@ export const navData = [
       { title: 'Dashboard Admin', path: '/dashboard-admin', icon: 'ic-admin' },
     ],
   },
+  // {
+  //   title: 'Invoice IT',
+  //   path: '/invoice-it',
+  //   icon: icon('ic-invoice'),
+  // },
   // {
   //   title: 'Product',
   //   path: '/products',

@@ -13,6 +13,7 @@ import { DashboardLayout } from 'src/layouts/dashboard';
 // ----------------------------------------------------------------------
 
 export const DashboardPage = lazy(() => import('src/pages/dashboard'));
+export const ReportViev = lazy(() => import('src/pages/report-view'));
 export const InvoiceItPage = lazy(() => import('src/pages/invoice-it'));
 export const UserPage = lazy(() => import('src/pages/user'));
 export const DashboardAdmin = lazy(() => import('src/pages/dashboard-admin'));
@@ -53,6 +54,7 @@ export const routesSection: RouteObject[] = [
     ),
     children: [
       { index: true, element: <DashboardPage /> },
+      { path: 'tong-quan', element: <ReportViev /> },
       { path: 'invoice-it', element: <InvoiceItPage /> },
       { path: 'user', element: <UserPage /> },
       { path: 'dashboard-admin', element: <DashboardAdmin /> },

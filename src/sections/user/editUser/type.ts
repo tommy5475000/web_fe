@@ -4,6 +4,7 @@ export type EditUserProps = {
 };
 
 export type EditUserForm = {
+  userId?:string;
   userName: string;
   // pass: string;
   // confirmPass: string;
@@ -16,4 +17,3 @@ export type EditUserForm = {
 };
 
 export type EditUserPayload = Omit<EditUserForm, 'confirmPass'>;
-

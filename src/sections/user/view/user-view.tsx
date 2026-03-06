@@ -22,6 +22,7 @@ import { headLabelUser } from 'src/components/Item/item';
 
 import { EditUser } from '../editUser';
 import { CreateUser } from '../createUser';
+import { ChangePass } from '../changePass';
 import { TableNoData } from '../table-no-data';
 import { UserTableRow } from '../user-table-row';
 import { UserTableHead } from '../user-table-head';
@@ -34,12 +35,13 @@ import type { UserProps } from '../user-table-row';
 // ----------------------------------------------------------------------
 
 export function UserView() {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const table = useTable();
   const [filterName, setFilterName] = useState('');
   const [openCreateUser, setOpenCreateUser] = useState(false);
   const [openEditUser, setOpenEditUser] = useState(false);
   const [rowSelect, setRowSelect] = useState<UserProps | null>(null);
+  const [openChangePass, setOpenChangePass] = useState(false);
 
   const handleOpenCreateUser = () => {
     setOpenCreateUser(true);
@@ -50,12 +52,12 @@ export function UserView() {
 
   const handleOpenEditUser = (row: UserProps) => {
     if (table.selected.length === 0) {
-      showAlert({ type: 'error', message: 'Vui lòng chọn 1 dòng muốn sửa' });
+      showAlert({ type: 'error', message: 'Chọn User cần thay đổi thông tin' });
       return;
     }
 
     if (table.selected.length > 1) {
-      showAlert({ type: 'error', message: 'Chỉ chọn 1 dòng' });
+      showAlert({ type: 'error', message: 'Chỉ chọn 1 User' });
       return;
     }
 
@@ -73,6 +75,24 @@ export function UserView() {
     queryKey: ['dataUser'],
     queryFn: getAllUser,
   });
+
+  const handleOpenChangePass = (row: UserProps) => {
+    if (table.selected.length === 0) {
+      showAlert({ type: 'error', message: 'Chọn User cần thay đổi mật khẩu' });
+      return;
+    }
+    if (table.selected.length > 1) {
+      showAlert({ type: 'error', message: 'Chỉ chọn 1 User' });
+    }
+    setRowSelect(rowSelect);
+    setOpenChangePass(true);
+  };
+
+  const handleCloseChangePass = () => {
+    setOpenChangePass(false);
+    setRowSelect(null);
+    table.onSelectAllRows(false, []);
+  };
 
   const dataFiltered: UserProps[] = applyFilter({
     inputData: dataUser,
@@ -101,13 +121,13 @@ export function UserView() {
   const { mutate: handleDelete } = useMutation<void, Error, string>({
     mutationFn: (userId) => removeUser(userId),
     onError: () => {
-      showAlert({type:'error',message:'User này không tồn tại hoặc đã được xoá'})
+      showAlert({ type: 'error', message: 'User này không tồn tại hoặc đã được xoá' });
     },
     onSuccess: () => {
-      showAlert({type:'success',message:'Xoá thành công'})
+      showAlert({ type: 'success', message: 'Xoá thành công' });
       queryClient.invalidateQueries({
-        queryKey:['dataUser']
-      })
+        queryKey: ['dataUser'],
+      });
     },
   });
 
@@ -170,6 +190,7 @@ export function UserView() {
                         setRowSelect(row);
                       }}
                       onEditUser={() => handleOpenEditUser(row)}
+                      onChangPass={() => handleOpenChangePass(row)}
                     />
                   ))}
 
@@ -201,6 +222,10 @@ export function UserView() {
 
       <ModalManager open={openEditUser} handleClose={handleCloseEditUser}>
         {rowSelect && <EditUser handleClose={handleCloseEditUser} rowSelect={rowSelect} />}
+      </ModalManager>
+
+      <ModalManager open={openChangePass} handleClose={handleCloseChangePass}>
+        {rowSelect && <ChangePass handleClose={handleCloseChangePass} rowSelect={rowSelect} />}
       </ModalManager>
     </DashboardContent>
   );

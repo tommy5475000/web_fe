@@ -14,7 +14,6 @@ import {
 
 import { Iconify } from 'src/components/iconify';
 
-
 export type DashboardProps = {
   id: string;
   title: string;
@@ -55,7 +54,7 @@ export function DashboardTableRow({
 
         <TableCell>{row.title}</TableCell>
 
-        <TableCell >{row.link?'Giấu rồi nha':''}</TableCell>
+        <TableCell>{row.link ? 'Giấu rồi nha' : ''}</TableCell>
 
         <TableCell sx={{ paddingLeft: '36px' }}>
           {row.status ? (
@@ -79,6 +78,7 @@ export function DashboardTableRow({
         anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
+        
         <MenuList
           disablePadding
           sx={{
@@ -105,15 +105,10 @@ export function DashboardTableRow({
             Edit
           </MenuItem>
 
-          <MenuItem onClick={handleClosePopover}>
+          {/* <MenuItem onClick={handleClosePopover}>
             <Iconify icon="solar:print-bold" />
             Print
           </MenuItem>
-
-          {/* <MenuItem onClick={handleClosePopover}>
-                        <Iconify icon="eva:trending-up-fill" />
-                        Up File
-                    </MenuItem> */}
 
           <MenuItem
             onClick={() => {
@@ -123,7 +118,7 @@ export function DashboardTableRow({
           >
             <Iconify icon="solar:eye-bold" />
             View
-          </MenuItem>
+          </MenuItem> */}
         </MenuList>
       </Popover>
     </>

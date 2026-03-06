@@ -22,6 +22,7 @@ export const createDashboardLink = async (payload) => {
 
 // ----- EDIT LINK BI ----- //
 export const editDashboardLink = async (payload) => {
+  
   try {
     const response = await fetcher.post('dashboardAdmin/editDashboardLink', payload);
     return response.data.content;

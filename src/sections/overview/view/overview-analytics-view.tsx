@@ -1,169 +1,60 @@
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import Slider from 'react-slick';
 
-import { DashboardContent } from 'src/layouts/dashboard';
-import { getAllDashboardAdmin } from 'src/apis/dashboardAdmin';
+const SlickSlider: any = Slider;
 
-// ----------------------------------------------------------------------
+import { Box, Card, Typography, CardContent } from '@mui/material';
+
+const images = [
+  'https://benthanhtsc.com/wp-content/uploads/2019/11/dia_oc_01-1-1024x935.jpg',
+  'https://benthanhtsc.com/wp-content/uploads/2019/11/dia_oc_02-1-1024x935.jpg',
+  'https://benthanhtsc.com/wp-content/uploads/2019/11/dia_oc_06-1024x935.jpg',
+];
 
 export function OverviewAnalyticsView() {
-  const { data = [] } = useQuery({
-    queryKey: ['dashboardAdmin'],
-    queryFn: getAllDashboardAdmin,
-  });
-
-  const [current, setCurrent] = useState(0);
+  const slider = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    speed: 300,
+  };
 
   return (
-    <DashboardContent
-      maxWidth="xl"
-      sx={{ height: 'calc(102vh)', width: '100%', overflow: 'hidden' }}
-    >
-      {/* <Tabs value={current} onChange={(e, v) => setCurrent(v)}>
-        {data.map((d) => (
-          <Tab key={d.id} label={d.name} />
-        ))}
-      </Tabs> */}
+    <Box p={3}>
+      <Card
+        sx={{
+          mb: 3,
+          p: 3,
+          background: 'linear-gradient(135deg,#1976d2,#42a5f5)',
+          color: '#fff',
+        }}
+      >
+        <Typography variant="h4" fontWeight="bold">
+          Xin chào 👋
+        </Typography>
 
-      <iframe
-        title="data[current]?.title"
-        height="100%"
-        width="100%"
-        src={data[current]?.link}
-        frameBorder={0}
-        style={{ border: 0, display: 'block' }}
-        allowFullScreen
-      />
+        <Typography>Chúc bạn một ngày làm việc hiệu quả</Typography>
+      </Card>
 
-      {/* 
-      <Grid container spacing={3}>
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <AnalyticsWidgetSummary
-            title="Weekly sales"
-            percent={2.6}
-            total={714000}
-            icon={<img alt="Weekly sales" src="/assets/icons/glass/ic-glass-bag.svg" />}
-            chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-              series: [22, 8, 35, 50, 82, 84, 77, 12],
-            }}
-          />
-        </Grid>
-
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <AnalyticsWidgetSummary
-            title="New users"
-            percent={-0.1}
-            total={1352831}
-            color="secondary"
-            icon={<img alt="New users" src="/assets/icons/glass/ic-glass-users.svg" />}
-            chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-              series: [56, 47, 40, 62, 73, 30, 23, 54],
-            }}
-          />
-        </Grid>
-
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <AnalyticsWidgetSummary
-            title="Purchase orders"
-            percent={2.8}
-            total={1723315}
-            color="warning"
-            icon={<img alt="Purchase orders" src="/assets/icons/glass/ic-glass-buy.svg" />}
-            chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-              series: [40, 70, 50, 28, 70, 75, 7, 64],
-            }}
-          />
-        </Grid>
-
-        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <AnalyticsWidgetSummary
-            title="Messages"
-            percent={3.6}
-            total={234}
-            color="error"
-            icon={<img alt="Messages" src="/assets/icons/glass/ic-glass-message.svg" />}
-            chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-              series: [56, 30, 23, 54, 47, 40, 62, 73],
-            }}
-          />
-        </Grid>
-
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <AnalyticsCurrentVisits
-            title="Current visits"
-            chart={{
-              series: [
-                { label: 'America', value: 3500 },
-                { label: 'Asia', value: 2500 },
-                { label: 'Europe', value: 1500 },
-                { label: 'Africa', value: 500 },
-              ],
-            }}
-          />
-        </Grid>
-
-        <Grid size={{ xs: 12, md: 6, lg: 8 }}>
-          <AnalyticsWebsiteVisits
-            title="Website visits"
-            subheader="(+43%) than last year"
-            chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-              series: [
-                { name: 'Team A', data: [43, 33, 22, 37, 67, 68, 37, 24, 55] },
-                { name: 'Team B', data: [51, 70, 47, 67, 40, 37, 24, 70, 24] },
-              ],
-            }}
-          />
-        </Grid>
-
-        <Grid size={{ xs: 12, md: 6, lg: 8 }}>
-          <AnalyticsConversionRates
-            title="Conversion rates"
-            subheader="(+43%) than last year"
-            chart={{
-              categories: ['Italy', 'Japan', 'China', 'Canada', 'France'],
-              series: [
-                { name: '2022', data: [44, 55, 41, 64, 22] },
-                { name: '2023', data: [53, 32, 33, 52, 13] },
-              ],
-            }}
-          />
-        </Grid>
-
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <AnalyticsCurrentSubject
-            title="Current subject"
-            chart={{
-              categories: ['English', 'History', 'Physics', 'Geography', 'Chinese', 'Math'],
-              series: [
-                { name: 'Series 1', data: [80, 50, 30, 40, 100, 20] },
-                { name: 'Series 2', data: [20, 30, 40, 80, 20, 80] },
-                { name: 'Series 3', data: [44, 76, 78, 13, 43, 10] },
-              ],
-            }}
-          />
-        </Grid>
-
-        <Grid size={{ xs: 12, md: 6, lg: 8 }}>
-          <AnalyticsNews title="News" list={_posts.slice(0, 5)} />
-        </Grid>
-
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <AnalyticsOrderTimeline title="Order timeline" list={_timeline} />
-        </Grid>
-
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
-          <AnalyticsTrafficBySite title="Traffic by site" list={_traffic} />
-        </Grid>
-
-        <Grid size={{ xs: 12, md: 6, lg: 8 }}>
-          <AnalyticsTasks title="Tasks" list={_tasks} />
-        </Grid>
-      </Grid> */}
-    </DashboardContent>
+      {/* Slide */}
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <SlickSlider {...slider}>
+            {images.map((img) => (
+              <Box key={img}>
+                <img
+                  src={img}
+                  style={{
+                    width: '100%',
+                    height: 450,
+                    objectFit: 'contain',
+                    borderRadius: 10,
+                  }}
+                />
+              </Box>
+            ))}
+          </SlickSlider>
+        </CardContent>
+      </Card>
+    </Box>
   );
 }

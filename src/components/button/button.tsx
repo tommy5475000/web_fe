@@ -7,7 +7,7 @@ export function ButtonGroup({ handleOpen, handleExport, handleImport }: ButtonGr
     <Grid>
       {handleOpen && (
         <Button variant="contained" color="primary" onClick={handleOpen} sx={{ mr: 0.5 }}>
-          Create
+          Thêm
         </Button>
       )}
       {handleExport && (

@@ -30,9 +30,16 @@ type UserTableRowProps = {
   selected: boolean;
   onSelectRow: () => void;
   onEditUser: () => void;
+  onChangPass: () => void;
 };
 
-export function UserTableRow({ row, selected, onSelectRow, onEditUser }: UserTableRowProps) {
+export function UserTableRow({
+  row,
+  selected,
+  onSelectRow,
+  onEditUser,
+  onChangPass,
+}: UserTableRowProps) {
   const [openPopover, setOpenPopover] = useState<HTMLButtonElement | null>(null);
 
   const handleOpenPopover = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
@@ -116,7 +123,12 @@ export function UserTableRow({ row, selected, onSelectRow, onEditUser }: UserTab
             Edit
           </MenuItem>
 
-          <MenuItem onClick={handleClosePopover} >
+          <MenuItem
+            onClick={() => {
+              handleClosePopover();
+              onChangPass();
+            }}
+          >
             <Iconify icon="custom:change-pass" />
             Change pass
           </MenuItem>

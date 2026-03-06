@@ -69,7 +69,7 @@ export function CreateLink({ handleClose }: createLinkProps) {
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <DialogTitle>Create Link Dashboard Admin</DialogTitle>
+      <DialogTitle>Tạo Link Dashboard Admin</DialogTitle>
       <DialogContent>
         <Grid container spacing={2} alignItems="center" justifyContent="flex-start" sx={{ mb: 1 }}>
           <Grid item xs={4}>
@@ -89,7 +89,7 @@ export function CreateLink({ handleClose }: createLinkProps) {
 
         <Grid container spacing={2} alignItems="center" justifyContent="flex-start" sx={{ mb: 1 }}>
           <Grid item xs={4}>
-            <InputLabel> Link báo cáo</InputLabel>
+            <InputLabel> Link báo cáo: </InputLabel>
           </Grid>
 
           <Grid item xs={8}>
