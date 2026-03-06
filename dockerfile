@@ -5,7 +5,7 @@
 # COPY . . 
 
 # Build stage
-FROM node:20 AS build
+FROM node:18
 
 WORKDIR /app
 
@@ -18,7 +18,7 @@ RUN yarn build
 
 
 # Run stage
-FROM nginx:alpine
+FROM nginx
 
 COPY --from=build /app/dist /usr/share/nginx/html
 
