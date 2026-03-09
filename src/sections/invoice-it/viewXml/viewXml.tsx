@@ -51,16 +51,16 @@ export function ViewXml({ handleClose, rowSelect }: ViewXmlProps) {
       }).then((result) => {
         if (result.isConfirmed) {
           mutate({ id, file });
-          handleClose()
+          handleClose();
         }
       });
     } else {
       // Chưa có file -> upload luôn
       mutate({ id, file });
-      handleClose()
+      handleClose();
     }
   };
-
+  console.log(`${import.meta.env.VITE_BE_URL}/files/invoice-scan/${fileName}`);
   return (
     <>
       <DialogTitle>
@@ -69,13 +69,12 @@ export function ViewXml({ handleClose, rowSelect }: ViewXmlProps) {
 
       <DialogContent>
         {rowSelect?.file ? (
-          
-            <iframe
-              src={`${import.meta.env.VITE_BE_URL}/files/invoice-scan/${fileName}`}
-              width="100%"
-              height="600px"
-              style={{ border: 'none' }}
-            />
+          <iframe
+            src={`/files/invoice-scan/${encodeURIComponent(fileName)}`}
+            width="100%"
+            height="600px"
+            style={{ border: 'none' }}
+          />
         ) : (
           <div>
             <h4>Chưa có upload file scan</h4>
