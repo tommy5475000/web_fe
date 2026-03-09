@@ -60,9 +60,6 @@ export function ViewXml({ handleClose, rowSelect }: ViewXmlProps) {
       handleClose();
     }
   };
-  console.log(`/files/invoice-scan/${encodeURIComponent(fileName)}`);
-  console.log(`${import.meta.env.VITE_BE_URL}/files/invoice-scan/${fileName}`);
-
   return (
     <>
       <DialogTitle>
@@ -72,7 +69,7 @@ export function ViewXml({ handleClose, rowSelect }: ViewXmlProps) {
       <DialogContent>
         {rowSelect?.file ? (
           <iframe
-            src={`/files/invoice-scan/${encodeURIComponent(fileName)}`}
+            src={`http://10.1.48.35:8168/files/invoice-scan/${encodeURIComponent(fileName)}`}
             width="100%"
             height="600px"
             style={{ border: 'none' }}
