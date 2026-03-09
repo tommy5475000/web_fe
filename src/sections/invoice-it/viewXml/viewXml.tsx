@@ -72,7 +72,7 @@ export function ViewXml({ handleClose, rowSelect }: ViewXmlProps) {
       <DialogContent>
         {rowSelect?.file ? (
           <iframe
-            src={`/files/invoice-scan/${encodeURIComponent(fileName)}`}
+            src={`${import.meta.env.VITE_BE_URL}/files/invoice-scan/${encodeURIComponent(fileName)}`}
             width="100%"
             height="600px"
             style={{ border: 'none' }}
