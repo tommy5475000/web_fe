@@ -60,7 +60,6 @@ export function ViewXml({ handleClose, rowSelect }: ViewXmlProps) {
       handleClose();
     }
   };
-  console.log(`${import.meta.env.VITE_BE_URL}/files/invoice-scan/${fileName}`);
   return (
     <>
       <DialogTitle>
